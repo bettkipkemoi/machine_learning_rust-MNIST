@@ -1,0 +1,9 @@
+# remove targets and build files
+/target/
+Cargo.lock
+
+# remove IDE specific files
+.vscode/
+# remove OS specific files
+.DS_Store
+Thumbs.db

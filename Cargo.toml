@@ -1,0 +1,9 @@
+[package]
+name = "rust-MNIST"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+mnist_reader = "0.1.0"
+ndarray = "0.17.2"
+ndarray-rand = "0.16.0"
