@@ -4,8 +4,11 @@ use mnist_reader::{MnistReader, print_image};
 use ndarray::prelude::*;
 use ndarray_rand::RandomExt;
 use ndarray_rand::rand_distr::Uniform;
+use std::time::Instant;
    
 fn main() {
+    let start_time = Instant::now();
+    
     println!("Loading MNIST dataset...");
     let mut mnist = MnistReader::new("mnist-data");
     mnist.load().unwrap();
@@ -37,6 +40,7 @@ fn main() {
     
     // Train the network
     println!("Training neural network...");
+    let training_start = Instant::now();
     let learning_rate = 0.05;
     let epochs = 10;
     
@@ -59,7 +63,8 @@ fn main() {
             println!("Epoch {} (lr={:.4}): Training accuracy = {:.2}%", epoch + 1, current_lr, (correct as f32 / train_inputs.len() as f32) * 100.0);
         }
     }
-    println!("Training complete!");
+    let training_duration = training_start.elapsed();
+    println!("Training complete! Time taken: {:.2}s", training_duration.as_secs_f64());
     
     // Display first 5 images with predictions
     println!("\n=== First 5 Training Samples ===");
@@ -100,6 +105,9 @@ fn main() {
     
     println!("\nTest Accuracy: {}/{} ({:.2}%)", correct, test_inputs.len(), 
              (correct as f32 / test_inputs.len() as f32) * 100.0);
+    
+    let total_duration = start_time.elapsed();
+    println!("\nTotal execution time: {:.2}s", total_duration.as_secs_f64());
 }
 
  // define the neural network structure
